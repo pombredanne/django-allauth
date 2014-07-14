@@ -1,95 +1,67 @@
-==============
-Django AllAuth
-==============
+==========================
+Welcome to django-allauth!
+==========================
+
+.. image:: https://badge.fury.io/py/django-allauth.png
+   :target: http://badge.fury.io/py/django-allauth
+
+.. image:: https://travis-ci.org/pennersr/django-allauth.png
+   :target: http://travis-ci.org/pennersr/django-allauth
+
+.. image:: https://pypip.in/d/django-allauth/badge.png
+   :target: https://crate.io/packages/django-allauth?version=latest
+
+.. image:: https://coveralls.io/repos/pennersr/django-allauth/badge.png?branch=master
+   :alt: Coverage Status
+   :target: https://coveralls.io/r/pennersr/django-allauth
 
 Integrated set of Django applications addressing authentication,
 registration, account management as well as 3rd party (social) account
 authentication.
 
-Installation
-============
+Home page
+  http://www.intenct.nl/projects/django-allauth/
 
-Django
-------
+Source code
+  http://github.com/pennersr/django-allauth
 
-settings.py::
+Mailinglist
+  http://groups.google.com/group/django-allauth
 
-    TEMPLATE_CONTEXT_PROCESSORS = (
-        ...
-        "allauth.context_processors.allauth",
-        "allauth.account.context_processors.account"
-    )
+Documentation
+  http://django-allauth.readthedocs.org/en/latest/
 
-    AUTHENTICATION_BACKENDS = (
-        ...
-        "allauth.account.auth_backends.AuthenticationBackend",
-    )
+Stack Overflow
+  http://stackoverflow.com/questions/tagged/django-allauth
 
-    INSTALLED_APPS = (
-        ...
-        'emailconfirmation',
-	'uni_form',
+Rationale
+=========
 
-        'allauth',
-        'allauth.account',
-        'allauth.socialaccount',
-        'allauth.twitter',
-        'allauth.openid',
-        'allauth.facebook',
+Most existing Django apps that address the problem of social
+authentication focus on just that. You typically need to integrate
+another app in order to support authentication via a local
+account.
 
-urls.py::
+This approach separates the worlds of local and social
+authentication. However, there are common scenarios to be dealt with
+in both worlds. For example, an e-mail address passed along by an
+OpenID provider is not guaranteed to be verified. So, before hooking
+an OpenID account up to a local account the e-mail address must be
+verified. So, e-mail verification needs to be present in both worlds.
 
-    urlpatterns = patterns('',
-        ...
-        (r'^accounts/', include('allauth.urls')))
+Integrating both worlds is quite a tedious process. It is definitely
+not a matter of simply adding one social authentication app, and one
+local account registration app to your `INSTALLED_APPS` list.
+
+This is the reason this project got started -- to offer a fully
+integrated authentication app that allows for both local and social
+authentication, with flows that just work.
 
 
-Configuration
-=============
+Commercial Support
+==================
 
-Available settings:
+This project is sponsored by IntenCT_. If you require assistance on
+your project(s), please contact us: info@intenct.nl.
 
-ACCOUNT_EMAIL_REQUIRED (=False)
-  The user is required to hand over an e-mail address when signing up
-
-ACCOUNT_EMAIL_VERIFICATION (=False)
-  After signing up, keep the user account inactive until the e-mail
-  address is verified
-
-ACCOUNT_EMAIL_AUTHENTICATION (=False)
-  Login by e-mail address, not username
-
-ACCOUNT_SIGNUP_PASSWORD_VERIFICATION (=True)
-  When signing up, let the user type in his password twice to avoid typ-o's.
-
-ACCOUNT_UNIQUE_EMAIL (=True)
-  Enforce uniqueness of e-mail addresses
-
-ACCOUNT_USERNAME_REQUIRED (=True)
-  If false, generates a random username rather than prompting for one
-  at signup
-
-SOCIALACCOUNT_QUERY_EMAIL (=ACCOUNT_EMAIL_REQUIRED)
-  Request e-mail address from 3rd party account provider? E.g. using
-  OpenID AX, or the Facebook "email" permission
-
-SOCIALACCOUNT_AUTO_SIGNUP (=True) 
-  Attempt to bypass the signup form by using fields (e.g. username,
-  email) retrieved from the social account provider. If a conflict
-  arises due to a duplicate e-mail address the signup form will still
-  kick in.
-
-SOCIALACCOUNT_AVATAR_SUPPORT (= 'avatar' in settings.INSTALLED_APPS)
-  Enable support for django-avatar. When enabled, the profile image of
-  the user is copied locally into django-avatar at signup.
-
-EMAIL_CONFIRMATION_DAYS (=# of days, no default)
-  Determines the expiration date of email confirmation mails sent by
-  django-email-confirmation.
-
-Facebook & Twitter
-------------------
-
-The required keys and secrets for interacting with Facebook and
-Twitter are to be configured in the database via the Django admin
-using the TwitterApp and FacebookApp models. 
+.. _IntenCT: http://www.intenct.info
